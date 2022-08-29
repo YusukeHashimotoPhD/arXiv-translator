@@ -71,6 +71,8 @@ with st.sidebar:
         index=0
     )
 
+#    keyword = st.text_input('Search keyword', '')
+
     list_major = ['-- Please select --'] + list(df_major.index)
     major_division = st.selectbox(
         'Major division',
@@ -97,11 +99,15 @@ if len(minor_division) != 1:
 
     # query = 'cat:cs.LG AND cat:cond-mat.mtrl-sci'
     # query = 'cat:cond-mat.mtrl-sci'
+#    if keyword != '':
+#        query = f'{keyword}&cat:{code_minor}'
+#    else:
     query = f'cat:{code_minor}'
 #    st.write(query)
     df = load_data(query, sort_by_text)
 
 if len(df) != 0:
+    translate = False
 
     with st.sidebar:
 
@@ -112,25 +118,35 @@ if len(df) != 0:
         )
 
         auth_key = st.text_input('Please enter your auth_key for the DeepL api')
-
         index = df.index[number - 1]
-        word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
 
-        translate = st.checkbox(f'Translate? ({word_counts} characters)',
-                                disabled=(auth_key == '')
-                                )
-
-        select_language = st.selectbox(
-            'Language',
-            list(dict_language.keys()),
-            disabled=(auth_key == ''),
-            index=0
-        )
-
-        lang = dict_language[select_language]
-
-    if translate:
+    if auth_key != '':
         translator = authorize_to_deepl(auth_key)
+        usage = translator.get_usage()
+        with st.sidebar:
+
+            word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
+
+            translate = st.checkbox(f'Translate? ({word_counts} characters)',
+                                    disabled=(auth_key == '')
+                                    )
+
+            select_language = st.selectbox(
+                'Language',
+                list(dict_language.keys()),
+                disabled=(auth_key == ''),
+                index=0
+            )
+
+            lang = dict_language[select_language]
+
+            if usage.character.limit_reached:
+                st.write("Character limit reached.")
+            else:
+                st.write(f"Character usage: {usage.character}")
+                st.progress(usage.character.count / usage.character.limit)
+
+
 
     st.subheader(df.loc[index, 'title'])
     if translate:
