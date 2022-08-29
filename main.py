@@ -61,6 +61,7 @@ def load_division_data():
 df_major, df_minor = load_division_data()
 df = pd.DataFrame()
 auth_key = 'cc42f94a-d197-5d6c-217b-a957fea929c0:fx'  # DeepL auth_key
+dict_language = {'Japanese':'JA', 'German':'DE', 'French':'FR', 'Italian':'IT', 'Spanish':'ES', 'Dutch':'NL', 'Polish':'PL'}
 
 with st.sidebar:
 
@@ -97,7 +98,6 @@ if len(minor_division) != 1:
     # query = 'cat:cs.LG AND cat:cond-mat.mtrl-sci'
     # query = 'cat:cond-mat.mtrl-sci'
     query = f'cat:{code_minor}'
-    lang = 'JA'
 #    st.write(query)
     df = load_data(query, sort_by_text)
 
@@ -119,6 +119,15 @@ if len(df) != 0:
         translate = st.checkbox(f'Translate? ({word_counts} characters)',
                                 disabled=(auth_key == '')
                                 )
+
+        select_language = st.selectbox(
+            'Language',
+            list(dict_language.keys()),
+            disabled=(auth_key == ''),
+            index=0
+        )
+
+        lang = dict_language[select_language]
 
     if translate:
         translator = authorize_to_deepl(auth_key)
