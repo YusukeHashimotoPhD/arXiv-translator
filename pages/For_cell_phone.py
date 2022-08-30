@@ -143,9 +143,10 @@ if len(df) != 0:
             st.write(f"Character usage: {usage.character}")
             st.progress(usage.character.count / usage.character.limit)
 
-    st.subheader(df.loc[index, 'title'])
+    title = df.loc[index, 'title'].replace('\n', '')
+    st.subheader(title)
     if translate:
-        st.subheader(translate_text(translator, df.loc[index, 'title'], lang))
+        st.write(translate_text(translator, title, lang))
 
     st.caption(df.loc[index, 'authors'])
 
