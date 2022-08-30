@@ -132,15 +132,15 @@ if len(df) != 0:
     )
     index = df.index[number - 1]
 
-    if auth_key != '':
-#        translator = authorize_to_deepl(auth_key)
-#        usage = translator.get_usage()
-
-        word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
-
-        translate = st.checkbox(f'Translate? ({word_counts} characters)',
-                                disabled=(auth_key == '')
-                                )
+#     if auth_key != '':
+# #        translator = authorize_to_deepl(auth_key)
+# #        usage = translator.get_usage()
+#
+#         word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
+#
+#         translate = st.checkbox(f'Translate? ({word_counts} characters)',
+#                                 disabled=(auth_key == '')
+#                                 )
 
     title = df.loc[index, 'title'].replace('\n', '')
     st.subheader(title)
@@ -176,6 +176,16 @@ if len(df) != 0:
 
     if str(df.loc[index, 'comment']) != 'None':
         st.caption(df.loc[index, 'comment'])
+
+    if auth_key != '':
+#        translator = authorize_to_deepl(auth_key)
+#        usage = translator.get_usage()
+
+        word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
+
+        translate = st.checkbox(f'Translate? ({word_counts} characters)',
+                                disabled=(auth_key == '')
+                                )
 
 else:
     st.title('Welcome to arXiv translator!')
