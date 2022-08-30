@@ -153,9 +153,10 @@ if len(df) != 0:
         dateLabel = f'Published: {published_datetime}, Updated: {updated_datetime}'
     st.write(dateLabel)
 
-    st.write(df.loc[index, 'summary'])
+    summary = df.loc[index, 'summary'].replace('\n', '')
+    st.write(summary)
     if translate:
-        st.write(translate_text(translator, df.loc[index, 'summary'], lang))
+        st.write(translate_text(translator, summary, lang))
 
     journal_str = str(df.loc[index, 'journal'])
     if journal_str != 'None':
