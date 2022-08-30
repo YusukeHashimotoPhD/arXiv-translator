@@ -174,6 +174,9 @@ if len(df) != 0:
 
 else:
     st.title('Welcome to arXiv translator!')
+
+    st.write('Cell phone version is here. https://yusukehashimotophd-arxiv-main-g2pfeu.streamlitapp.com/For_cell_phone')
+
     st.subheader('How to use?')
     st.subheader(
         'Please choose the major and minor divisions of the reseach fields you want to investigate. Then, '
