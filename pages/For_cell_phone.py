@@ -66,7 +66,7 @@ dict_language = {'Japanese': 'JA', 'German': 'DE', 'French': 'FR', 'Italian': 'I
 
 auth_key = st.text_input('Please enter your auth_key for the DeepL api')
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     sort_by_text = st.selectbox(
@@ -125,16 +125,12 @@ if len(df) != 0:
             st.write(f"Character usage: {usage.character}")
             st.progress(usage.character.count / usage.character.limit)
 
-    with col4:
-
-        number = st.number_input(
-            'Page',
-            min_value=1,
-            max_value=len(df)
-        )
-
- #       auth_key = st.text_input('Please enter your auth_key for the DeepL api')
-        index = df.index[number - 1]
+    number = st.number_input(
+        'Page',
+        min_value=1,
+        max_value=len(df)
+    )
+    index = df.index[number - 1]
 
     if auth_key != '':
 #        translator = authorize_to_deepl(auth_key)
