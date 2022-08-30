@@ -106,17 +106,6 @@ if len(minor_division) != 1:
 if len(df) != 0:
     translate = False
 
-    with col4:
-
-        number = st.number_input(
-            'Page',
-            min_value=1,
-            max_value=len(df)
-        )
-
- #       auth_key = st.text_input('Please enter your auth_key for the DeepL api')
-        index = df.index[number - 1]
-
     if auth_key != '':
         translator = authorize_to_deepl(auth_key)
         usage = translator.get_usage()
@@ -142,6 +131,17 @@ if len(df) != 0:
         else:
             st.write(f"Character usage: {usage.character}")
             st.progress(usage.character.count / usage.character.limit)
+
+    with col4:
+
+        number = st.number_input(
+            'Page',
+            min_value=1,
+            max_value=len(df)
+        )
+
+        #       auth_key = st.text_input('Please enter your auth_key for the DeepL api')
+        index = df.index[number - 1]
 
     title = df.loc[index, 'title'].replace('\n', '')
     st.subheader(title)
