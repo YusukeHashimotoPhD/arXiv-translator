@@ -64,15 +64,18 @@ df = pd.DataFrame()
 dict_language = {'Japanese': 'JA', 'German': 'DE', 'French': 'FR', 'Italian': 'IT', 'Spanish': 'ES', 'Dutch': 'NL',
                  'Polish': 'PL'}
 
-with st.sidebar:
+auth_key = st.text_input('Please enter your auth_key for the DeepL api')
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
     sort_by_text = st.selectbox(
         'Sort by',
         ['Last updated date', 'Submitted date'],
         index=0
     )
 
-    #    keyword = st.text_input('Search keyword', '')
-
+with col2:
     list_major = ['-- Please select --'] + list(df_major.index)
     major_division = st.selectbox(
         'Major division',
@@ -87,12 +90,13 @@ with st.sidebar:
     else:
         list_minor = list_major[0]
 
-    minor_division = st.selectbox(
-        'Minor division',
-        list_minor,
-        disabled=(major_division == list_major[0]),
-        index=0
-    )
+    with col3:
+        minor_division = st.selectbox(
+            'Minor division',
+            list_minor,
+            disabled=(major_division == list_major[0]),
+            index=0
+        )
 
 if len(minor_division) != 1:
     code_minor = df_minor.loc[minor_division, 'code_minor']
@@ -102,7 +106,7 @@ if len(minor_division) != 1:
 if len(df) != 0:
     translate = False
 
-    with st.sidebar:
+    with col4:
 
         number = st.number_input(
             '',
@@ -110,7 +114,7 @@ if len(df) != 0:
             max_value=len(df)
         )
 
-        auth_key = st.text_input('Please enter your auth_key for the DeepL api')
+ #       auth_key = st.text_input('Please enter your auth_key for the DeepL api')
         index = df.index[number - 1]
 
     if auth_key != '':
