@@ -109,7 +109,7 @@ if len(df) != 0:
     with col4:
 
         number = st.number_input(
-            '',
+            'Page',
             min_value=1,
             max_value=len(df)
         )
@@ -120,28 +120,28 @@ if len(df) != 0:
     if auth_key != '':
         translator = authorize_to_deepl(auth_key)
         usage = translator.get_usage()
-        with st.sidebar:
+#        with st.sidebar:
 
-            word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
+        word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
 
-            translate = st.checkbox(f'Translate? ({word_counts} characters)',
-                                    disabled=(auth_key == '')
-                                    )
+        translate = st.checkbox(f'Translate? ({word_counts} characters)',
+                                disabled=(auth_key == '')
+                                )
 
-            select_language = st.selectbox(
-                'Language',
-                list(dict_language.keys()),
-                disabled=(auth_key == ''),
-                index=0
-            )
+        select_language = st.selectbox(
+            'Language',
+            list(dict_language.keys()),
+            disabled=(auth_key == ''),
+            index=0
+        )
 
-            lang = dict_language[select_language]
+        lang = dict_language[select_language]
 
-            if usage.character.limit_reached:
-                st.write("Character limit reached.")
-            else:
-                st.write(f"Character usage: {usage.character}")
-                st.progress(usage.character.count / usage.character.limit)
+        if usage.character.limit_reached:
+            st.write("Character limit reached.")
+        else:
+            st.write(f"Character usage: {usage.character}")
+            st.progress(usage.character.count / usage.character.limit)
 
     st.subheader(df.loc[index, 'title'])
     if translate:
