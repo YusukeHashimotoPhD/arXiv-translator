@@ -61,8 +61,9 @@ def load_division_data():
 
 df_major, df_minor = load_division_data()
 df = pd.DataFrame()
-dict_language = {'Japanese': 'JA', 'German': 'DE', 'French': 'FR', 'Italian': 'IT', 'Spanish': 'ES', 'Dutch': 'NL',
-                 'Polish': 'PL'}
+#dict_language = {'Japanese': 'JA', 'German': 'DE', 'French': 'FR', 'Italian': 'IT', 'Spanish': 'ES', 'Dutch': 'NL',
+#                 'Polish': 'PL'}
+dict_language = {'Bulgarian':'BG', 'Czech':'CS', 'Danish':'DA', 'German':'DE', 'Greek':'EL', 'English':'EN', 'Spanish':'ES', 'Estonian':'ET', 'Finnish':'FI', 'French':'FR', 'Hungarian':'HU', 'Indonesian':'ID', 'Italian':'IT', 'Japanese':'JA', 'Lithuanian':'LT', 'Latvian':'LV', 'Dutch':'NL', 'Polish':'PL', 'Portuguese':'PT', 'Romanian':'RO', 'Russian':'RU', 'Slovak':'SK', 'Slovenian':'SL', 'Swedish':'SV', 'Turkish':'TR', 'Ukrainian':'UK', 'Chinese':'ZH'}
 
 with st.sidebar:
     sort_by_text = st.selectbox(
@@ -128,7 +129,7 @@ if len(df) != 0:
                 'Language',
                 list(dict_language.keys()),
                 disabled=(auth_key == ''),
-                index=0
+                index=13
             )
 
             lang = dict_language[select_language]
