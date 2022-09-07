@@ -181,12 +181,14 @@ else:
 
     st.subheader('How to use?')
     st.subheader(
-        'Please choose the major and minor divisions of the reseach fields you want to investigate. Then, '
-        'you will see infomation of papers submitted to arXiv.')
+        'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
+        'you will see information of papers submitted to arXiv.')
     st.subheader(
-        'If you want to translate the documents, please input your api-key code for the deepL API free obtained in '
+        'If you want to translate the documents, please paste API key from your DeepL account obtained in '
         'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '
         'You will see the translated documents.')
     st.subheader(
-        'Note that this app uses the free version of the deepL api, so that the translation word is limited to 500,'
+        'Note that, if you use the free version of the deepL api, the translation word is limited to 500,'
         '000, which corresponds to roughly 500 pages, per month.')
+    st.subheader(
+        'We will not take any responsibility for any loss, damage, or troubles that may be caused by using this system.')
