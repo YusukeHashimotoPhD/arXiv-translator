@@ -176,7 +176,7 @@ if len(df) != 0:
 else:
     st.title('Welcome to arXiv translator!')
 
-    st.write('Cell phone version is here. https://yusukehashimotophd-arxiv-main-g2pfeu.streamlitapp.com/For_cell_phone')
+    st.write('Cell phone version is here. https://yusukehashimotophd-arxiv-translator-main-agggx8.streamlitapp.com/For_cell_phone')
 
     st.subheader('How to use?')
     st.subheader(
