@@ -14,7 +14,7 @@ def load_data(query, sort_by_text):
     sort_by = dict_sort_by[sort_by_text]
     search = arxiv.Search(
         query=query,
-        max_results=50,
+        max_results=100,
         sort_by=sort_by
     )
 
@@ -72,8 +72,6 @@ with st.sidebar:
         index=0
     )
 
-    #    keyword = st.text_input('Search keyword', '')
-
     list_major = ['-- Please select --'] + list(df_major.index)
     major_division = st.selectbox(
         'Major division',
@@ -105,14 +103,14 @@ if len(df) != 0:
 
     with st.sidebar:
 
-        number = st.number_input(
+        page_num = st.number_input(
             '',
             min_value=1,
             max_value=len(df)
         )
 
         auth_key = st.text_input('Please enter your auth_key for the DeepL api')
-        index = df.index[number - 1]
+        index = df.index[page_num - 1]
 
     if auth_key != '':
         translator = authorize_to_deepl(auth_key)

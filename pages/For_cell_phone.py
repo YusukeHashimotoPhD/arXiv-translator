@@ -14,7 +14,7 @@ def load_data(query, sort_by_text):
     sort_by = dict_sort_by[sort_by_text]
     search = arxiv.Search(
         query=query,
-        max_results=50,
+        max_results=100,
         sort_by=sort_by
     )
 
@@ -126,12 +126,12 @@ if len(df) != 0:
             st.write(f"Character usage: {usage.character}")
             st.progress(usage.character.count / usage.character.limit)
 
-    number = st.number_input(
+    page_num = st.number_input(
         'Page',
         min_value=1,
         max_value=len(df)
     )
-    index = df.index[number - 1]
+    index = df.index[page_num - 1]
 
     title = df.loc[index, 'title'].replace('\n', '')
     st.subheader(title)
