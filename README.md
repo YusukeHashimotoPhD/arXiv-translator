@@ -1,4 +1,4 @@
-# arXiv
+# arXiv translator
 
 This project aims to support non-native English researchers.
 A web app. obtains information of papers submitted to arXiv through its api.
