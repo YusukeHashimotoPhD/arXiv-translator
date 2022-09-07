@@ -179,15 +179,15 @@ else:
     st.write('Cell phone version is here. https://yusukehashimotophd-arxiv-translator-main-agggx8.streamlitapp.com/For_cell_phone')
 
     st.subheader('How to use?')
-    st.subheader(
+    st.write(
         'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
         'you will see information of papers submitted to arXiv.')
-    st.subheader(
+    st.write(
         'If you want to translate the documents, please paste API key from your DeepL account obtained in '
         'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '
         'You will see the translated documents.')
-    st.subheader(
+    st.write(
         'Note that, if you use the free version of the deepL api, the translation word is limited to 500,'
         '000, which corresponds to roughly 500 pages, per month.')
-    st.subheader(
+    st.write(
         'We will not take any responsibility for any loss, damage, or troubles that may be caused by using this system.')
