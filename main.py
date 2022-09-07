@@ -142,7 +142,7 @@ if len(df) != 0:
     title = df.loc[index, 'title'].replace('\n', '')
     st.subheader(title)
     if translate:
-        st.write(translate_text(translator, title, lang))
+        st.subheader(translate_text(translator, title, lang))
 
     st.caption(df.loc[index, 'authors'])
 
