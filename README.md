@@ -11,9 +11,9 @@ https://yusukehashimotophd-arxiv-main-g2pfeu.streamlitapp.com/For_cell_phone
 for cell phone.
 
 If you deploy by yourself, please prepare the python enivronment and then install libraries by
-'''
+<pre><code>
 pip install arXiv deepl pandas streamlit
-'''
+</code></pre>
 and then run the 'main.py' code with streamlit by
 '''
 streamlit run main.py
