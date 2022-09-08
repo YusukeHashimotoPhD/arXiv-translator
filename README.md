@@ -1,7 +1,7 @@
 # arXiv translator
 
 This project aims to support non-native English researchers.
-A web app. obtains information of papers submitted to arXiv through its api.
+This web app. obtains information of papers submitted to arXiv through its api.
 Then, the obtained documents are translated with deepL if you paste API key from your DeepL account.
  
 To use this app, you can deploy this app by yourself with codes given in this repositly or use
