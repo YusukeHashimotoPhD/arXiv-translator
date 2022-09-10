@@ -72,6 +72,18 @@ with st.sidebar:
         index=0
     )
 
+    st.write('Filter')
+    col1, col2, = st.columns(2)
+    with col1:
+        filter_journal = st.checkbox(
+            'Published'
+        )
+
+    with col2:
+        filter_accepted = st.checkbox(
+            'Accepted'
+        )
+
     list_major = ['-- Please select --'] + list(df_major.index)
     major_division = st.selectbox(
         'Major division',
@@ -93,10 +105,18 @@ with st.sidebar:
         index=0
     )
 
+
 if len(minor_division) != 1:
     code_minor = df_minor.loc[minor_division, 'code_minor']
     query = f'cat:{code_minor}'
     df = load_data(query, sort_by_text)
+
+    if filter_journal:
+        df = df.dropna(subset=['journal'])
+
+    if filter_accepted:
+        df = df.dropna(subset=['comment'])
+        df = df[df['comment'].str.contains('Accepted')]
 
 if len(df) != 0:
     translate = False
@@ -104,7 +124,7 @@ if len(df) != 0:
     with st.sidebar:
 
         page_num = st.number_input(
-            '',
+            'Page of ' + str(len(df)),
             min_value=1,
             max_value=len(df)
         )

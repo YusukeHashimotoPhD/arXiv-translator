@@ -37,6 +37,14 @@ def load_data(query, sort_by_text):
         links = result.links
         df.loc[index, 'link'] = ', '.join([str(link) for link in links])
 
+    df['updated'] = pd.to_datetime(df['updated'])
+    df['published'] = pd.to_datetime(df['published'])
+
+    if sort_by_text == 'Last updated date':
+        df['date'] = df['updated'].dt.date
+    else:
+        df['date'] = df['published'].dt.date
+
     return df
 
 
@@ -67,6 +75,8 @@ dict_language = {'Bulgarian':'BG', 'Czech':'CS', 'Danish':'DA', 'German':'DE', '
 
 auth_key = st.text_input('Please enter your auth_key for the DeepL api')
 
+st.write('Filter')
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -77,6 +87,17 @@ with col1:
     )
 
 with col2:
+    filter_journal = st.checkbox(
+        'Published'
+    )
+
+with col3:
+    filter_accepted = st.checkbox(
+        'Accepted'
+    )
+
+col1_A, col2_A, = st.columns(2)
+with col1_A:
     list_major = ['-- Please select --'] + list(df_major.index)
     major_division = st.selectbox(
         'Major division',
@@ -91,7 +112,7 @@ with col2:
     else:
         list_minor = list_major[0]
 
-    with col3:
+    with col2_A:
         minor_division = st.selectbox(
             'Minor division',
             list_minor,
@@ -103,6 +124,13 @@ if len(minor_division) != 1:
     code_minor = df_minor.loc[minor_division, 'code_minor']
     query = f'cat:{code_minor}'
     df = load_data(query, sort_by_text)
+
+    if filter_journal:
+        df = df.dropna(subset=['journal'])
+
+    if filter_accepted:
+        df = df.dropna(subset=['comment'])
+        df = df[df['comment'].str.contains('Accepted')]
 
 if len(df) != 0:
     translate = False
@@ -127,7 +155,7 @@ if len(df) != 0:
             st.progress(usage.character.count / usage.character.limit)
 
     page_num = st.number_input(
-        'Page',
+        'Page of ' + str(len(df)),
         min_value=1,
         max_value=len(df)
     )
