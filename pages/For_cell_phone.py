@@ -75,8 +75,6 @@ dict_language = {'Bulgarian':'BG', 'Czech':'CS', 'Danish':'DA', 'German':'DE', '
 
 auth_key = st.text_input('Please enter your auth_key for the DeepL api')
 
-st.write('Filter')
-
 col1, col2, col3 = st.columns(3)
 
 with col1:
@@ -85,6 +83,8 @@ with col1:
         ['Last updated date', 'Submitted date'],
         index=0
     )
+
+st.write('Filter')
 
 with col2:
     filter_journal = st.checkbox(
