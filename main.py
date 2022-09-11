@@ -158,7 +158,7 @@ if len(df) != 0:
                 st.write(f"Character usage: {usage.character}")
                 st.progress(usage.character.count / usage.character.limit)
 
-    title = df.loc[index, 'title'].replace('\n', '')
+    title = df.loc[index, 'title'].replace('\n', ' ')
     st.subheader(title)
     if translate:
         st.subheader(translate_text(translator, title, lang))
@@ -173,7 +173,7 @@ if len(df) != 0:
         dateLabel = f'Published: {published_datetime}, Updated: {updated_datetime}'
     st.write(dateLabel)
 
-    summary = df.loc[index, 'summary'].replace('\n', '')
+    summary = df.loc[index, 'summary'].replace('\n', ' ')
     st.write(summary)
     if translate:
         st.write(translate_text(translator, summary, lang))

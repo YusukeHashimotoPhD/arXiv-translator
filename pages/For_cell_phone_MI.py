@@ -96,41 +96,15 @@ with col3:
         'Accepted'
     )
 
-col1_A, col2_A, = st.columns(2)
-with col1_A:
-    list_major = ['-- Please select --'] + list(df_major.index)
-    major_division = st.selectbox(
-        'Major division',
-        list_major,
-        index=0
-    )
+query = 'Materials informatics'
+df = load_data(query, sort_by_text)
 
-    if major_division != list_major[0]:
-        code_major = df_major.loc[major_division, 'code_major']
-        df_minor_selected = df_minor[df_minor['code_minor'].str.contains(code_major)]
-        list_minor = df_minor_selected.index
-    else:
-        list_minor = list_major[0]
+if filter_journal:
+    df = df.dropna(subset=['journal'])
 
-    with col2_A:
-        minor_division = st.selectbox(
-            'Minor division',
-            list_minor,
-            disabled=(major_division == list_major[0]),
-            index=0
-        )
-
-if len(minor_division) != 1:
-    code_minor = df_minor.loc[minor_division, 'code_minor']
-    query = f'cat:{code_minor}'
-    df = load_data(query, sort_by_text)
-
-    if filter_journal:
-        df = df.dropna(subset=['journal'])
-
-    if filter_accepted:
-        df = df.dropna(subset=['comment'])
-        df = df[df['comment'].str.contains('Accepted')]
+if filter_accepted:
+    df = df.dropna(subset=['comment'])
+    df = df[df['comment'].str.contains('Accepted')]
 
 if len(df) != 0:
     translate = False
