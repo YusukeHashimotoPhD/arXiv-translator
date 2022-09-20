@@ -84,6 +84,10 @@ with st.sidebar:
             'Accepted'
         )
 
+    text = st.text_input(
+        'Search keyword'
+    )
+
     list_major = ['-- Please select --'] + list(df_major.index)
     major_division = st.selectbox(
         'Major division',
@@ -108,7 +112,24 @@ with st.sidebar:
 
 if len(minor_division) != 1:
     code_minor = df_minor.loc[minor_division, 'code_minor']
-    query = f'cat:{code_minor}'
+    query_code_minor = f'cat:{code_minor}'
+
+    if len(text) != 0:
+        list_text = text.split(' ')
+        if len(list_text) == 1:
+            combined_text = text
+        else:
+            combined_text = ' AND '.join(list_text)
+    else:
+        combined_text = ''
+
+    print(combined_text)
+
+    if len(text) != 0:
+        query = query_code_minor + ' AND ' + combined_text
+    else:
+        query = query_code_minor
+
     df = load_data(query, sort_by_text)
 
     if filter_journal:
