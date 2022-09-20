@@ -218,8 +218,6 @@ if len(df) != 0:
         st.caption(df.loc[index, 'comment'])
 
     if auth_key != '':
-        #        translator = authorize_to_deepl(auth_key)
-        #        usage = translator.get_usage()
 
         word_counts = len(df.loc[index, 'title']) + len(df.loc[index, 'summary'])
 
@@ -236,7 +234,9 @@ else:
     st.subheader('How to use?')
     st.write(
         'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
-        'you will see information of papers submitted to arXiv.')
+        'you will see information of papers submitted to arXiv. Search keyword can be given.')
+    st.write(
+        'Published and accepted filters select the manuscript with url of publisher and "Acceptted" in the comment, respectively.')
     st.write(
         'If you want to translate the documents, please paste API key from your DeepL account obtained in '
         'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '

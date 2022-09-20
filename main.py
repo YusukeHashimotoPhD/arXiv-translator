@@ -66,28 +66,6 @@ df = pd.DataFrame()
 dict_language = {'Bulgarian':'BG', 'Czech':'CS', 'Danish':'DA', 'German':'DE', 'Greek':'EL', 'English':'EN', 'Spanish':'ES', 'Estonian':'ET', 'Finnish':'FI', 'French':'FR', 'Hungarian':'HU', 'Indonesian':'ID', 'Italian':'IT', 'Japanese':'JA', 'Lithuanian':'LT', 'Latvian':'LV', 'Dutch':'NL', 'Polish':'PL', 'Portuguese':'PT', 'Romanian':'RO', 'Russian':'RU', 'Slovak':'SK', 'Slovenian':'SL', 'Swedish':'SV', 'Turkish':'TR', 'Ukrainian':'UK', 'Chinese':'ZH'}
 
 with st.sidebar:
-    sort_by_text = st.selectbox(
-        'Sort by',
-        ['Last updated date', 'Submitted date'],
-        index=0
-    )
-
-    st.write('Filter')
-    col1, col2, = st.columns(2)
-    with col1:
-        filter_journal = st.checkbox(
-            'Published'
-        )
-
-    with col2:
-        filter_accepted = st.checkbox(
-            'Accepted'
-        )
-
-    text = st.text_input(
-        'Search keyword'
-    )
-
     list_major = ['-- Please select --'] + list(df_major.index)
     major_division = st.selectbox(
         'Major division',
@@ -108,6 +86,49 @@ with st.sidebar:
         disabled=(major_division == list_major[0]),
         index=0
     )
+
+    text = st.text_input(
+        'Search keyword'
+    )
+
+    st.write('Filter')
+    col1, col2, = st.columns(2)
+    with col1:
+        filter_journal = st.checkbox(
+            'Published'
+        )
+
+    with col2:
+        filter_accepted = st.checkbox(
+            'Accepted'
+        )
+
+    sort_by_text = st.selectbox(
+        'Sort by',
+        ['Last updated date', 'Submitted date'],
+        index=0
+    )
+
+    # list_major = ['-- Please select --'] + list(df_major.index)
+    # major_division = st.selectbox(
+    #     'Major division',
+    #     list_major,
+    #     index=0
+    # )
+    #
+    # if major_division != list_major[0]:
+    #     code_major = df_major.loc[major_division, 'code_major']
+    #     df_minor_selected = df_minor[df_minor['code_minor'].str.contains(code_major)]
+    #     list_minor = df_minor_selected.index
+    # else:
+    #     list_minor = list_major[0]
+    #
+    # minor_division = st.selectbox(
+    #     'Minor division',
+    #     list_minor,
+    #     disabled=(major_division == list_major[0]),
+    #     index=0
+    # )
 
 
 if len(minor_division) != 1:
@@ -222,7 +243,9 @@ else:
     st.subheader('How to use?')
     st.write(
         'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
-        'you will see information of papers submitted to arXiv.')
+        'you will see information of papers submitted to arXiv. Search keyword can be given.')
+    st.write(
+        'Published and accepted filters select the manuscript with url of publisher and "Acceptted" in the comment, respectively.')
     st.write(
         'If you want to translate the documents, please paste API key from your DeepL account obtained in '
         'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '
