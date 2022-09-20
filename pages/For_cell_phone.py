@@ -75,30 +75,25 @@ dict_language = {'Bulgarian':'BG', 'Czech':'CS', 'Danish':'DA', 'German':'DE', '
 
 auth_key = st.text_input('Please enter your auth_key for the DeepL api')
 
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    sort_by_text = st.selectbox(
-        'Sort by',
-        ['Last updated date', 'Submitted date'],
-        index=0
-    )
+sort_by_text = st.selectbox(
+    'Sort by',
+    ['Last updated date', 'Submitted date'],
+    index=0
+)
 
 st.write('Filter')
 
-with col2:
+col1, col2 = st.columns(2)
+
+with col1:
     filter_journal = st.checkbox(
         'Published'
     )
 
-with col3:
+with col2:
     filter_accepted = st.checkbox(
         'Accepted'
     )
-
-text = st.text_input(
-    'Search keyword'
-)
 
 col1_A, col2_A, = st.columns(2)
 with col1_A:
@@ -123,6 +118,10 @@ with col1_A:
             disabled=(major_division == list_major[0]),
             index=0
         )
+
+text = st.text_input(
+    'Search keyword'
+)
 
 if len(minor_division) != 1:
     code_minor = df_minor.loc[minor_division, 'code_minor']
