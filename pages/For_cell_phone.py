@@ -119,29 +119,35 @@ with col1_A:
             index=0
         )
 
-text = st.text_input(
+search_keyword = st.text_input(
     'Search keyword'
 )
 
-if len(minor_division) != 1:
-    code_minor = df_minor.loc[minor_division, 'code_minor']
-    query_code_minor = f'cat:{code_minor}'
+if (len(minor_division) != 1) | (len(search_keyword) != 0):
+    if len(minor_division) != 1:
+        code_minor = df_minor.loc[minor_division, 'code_minor']
+    else:
+        code_minor = ''
 
-    if len(text) != 0:
-        list_text = text.split(' ')
+    if len(search_keyword) != 0:
+        list_text = search_keyword.split(' ')
         if len(list_text) == 1:
-            combined_text = text
+            combined_text = search_keyword
         else:
             combined_text = ' AND '.join(list_text)
     else:
         combined_text = ''
 
-    print(combined_text)
-
-    if len(text) != 0:
-        query = query_code_minor + ' AND ' + combined_text
+    if len(search_keyword) != 0:
+        if len(minor_division) != 1:
+            query = f'cat:{code_minor} AND ' + combined_text
+        else:
+            query = combined_text
     else:
-        query = query_code_minor
+        if len(minor_division) != 1:
+            query = f'cat:{code_minor}'
+        else:
+            query = ''
 
     df = load_data(query, sort_by_text)
 
