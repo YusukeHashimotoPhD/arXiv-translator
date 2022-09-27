@@ -37,13 +37,13 @@ def load_data(query, sort_by_text):
         links = result.links
         df.loc[index, 'link'] = ', '.join([str(link) for link in links])
 
-    df['updated'] = pd.to_datetime(df['updated'])
-    df['published'] = pd.to_datetime(df['published'])
+#    df['updated'] = pd.to_datetime(df['updated'])
+#    df['published'] = pd.to_datetime(df['published'])
 
-    if sort_by_text == 'Last updated date':
-        df['date'] = df['updated'].dt.date
-    else:
-        df['date'] = df['published'].dt.date
+    # if sort_by_text == 'Last updated date':
+    #     df['date'] = df['updated'].dt.date
+    # else:
+    #     df['date'] = df['published'].dt.date
 
     return df
 
@@ -235,19 +235,23 @@ if len(df) != 0:
         st.write(translate_text(translator, summary, lang))
 
 else:
-    st.title('Welcome to arXiv translator!')
-    st.subheader('How to use?')
-    st.write(
-        'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
-        'you will see information of papers submitted to arXiv. Search keyword can be given.')
-    st.write(
-        'Published and accepted filters select the manuscript with url of publisher and "Acceptted" in the comment, respectively.')
-    st.write(
-        'If you want to translate the documents, please paste API key from your DeepL account obtained in '
-        'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '
-        'You will see the translated documents.')
-    st.write(
-        'Note that, if you use the free version of the deepL api, the translation word is limited to 500,'
-        '000, which corresponds to roughly 500 pages, per month.')
-    st.write(
+    if (len(minor_division) != 1) | (len(search_keyword) != 0):
+        st.title('No result was obtained!')
+        st.subheader('Please change division or search keyword.')
+    else:
+        st.title('Welcome to arXiv translator!')
+        st.subheader('How to use?')
+        st.write(
+            'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
+            'you will see information of papers submitted to arXiv. Search keyword can be given.')
+        st.write(
+            'Published and accepted filters select the manuscript with url of publisher and "Acceptted" in the comment, respectively.')
+        st.write(
+            'If you want to translate the documents, please paste API key from your DeepL account obtained in '
+            'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '
+            'You will see the translated documents.')
+        st.write(
+            'Note that, if you use the free version of the deepL api, the translation word is limited to 500,'
+            '000, which corresponds to roughly 500 pages, per month.')
+        st.write(
         'We will not take any responsibility for any loss, damage, or troubles that may be caused by using this system.')

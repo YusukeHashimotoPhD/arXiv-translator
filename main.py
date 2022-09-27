@@ -109,28 +109,6 @@ with st.sidebar:
         index=0
     )
 
-    # list_major = ['-- Please select --'] + list(df_major.index)
-    # major_division = st.selectbox(
-    #     'Major division',
-    #     list_major,
-    #     index=0
-    # )
-    #
-    # if major_division != list_major[0]:
-    #     code_major = df_major.loc[major_division, 'code_major']
-    #     df_minor_selected = df_minor[df_minor['code_minor'].str.contains(code_major)]
-    #     list_minor = df_minor_selected.index
-    # else:
-    #     list_minor = list_major[0]
-    #
-    # minor_division = st.selectbox(
-    #     'Minor division',
-    #     list_minor,
-    #     disabled=(major_division == list_major[0]),
-    #     index=0
-    # )
-
-
 if (len(minor_division) != 1) | (len(search_keyword) != 0):
     if len(minor_division) != 1:
         code_minor = df_minor.loc[minor_division, 'code_minor']
@@ -242,22 +220,26 @@ if len(df) != 0:
         st.caption(df.loc[index, 'comment'])
 
 else:
-    st.title('Welcome to arXiv translator!')
+    if (len(minor_division) != 1) | (len(search_keyword) != 0):
+        st.title('No result was obtained!')
+        st.subheader('Please change division or search keyword.')
+    else:
+        st.title('Welcome to arXiv translator!')
 
-    st.write('Cell phone version is here. https://yusukehashimotophd-arxiv-translator-main-agggx8.streamlitapp.com/For_cell_phone')
+        st.write('Cell phone version is here. https://yusukehashimotophd-arxiv-translator-main-agggx8.streamlitapp.com/For_cell_phone')
 
-    st.subheader('How to use?')
-    st.write(
-        'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
-        'you will see information of papers submitted to arXiv. Search keyword can be given.')
-    st.write(
-        'Published and accepted filters select the manuscript with url of publisher and "Acceptted" in the comment, respectively.')
-    st.write(
-        'If you want to translate the documents, please paste API key from your DeepL account obtained in '
-        'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '
-        'You will see the translated documents.')
-    st.write(
-        'Note that, if you use the free version of the deepL api, the translation word is limited to 500,'
-        '000, which corresponds to roughly 500 pages, per month.')
-    st.write(
-        'We will not take any responsibility for any loss, damage, or troubles that may be caused by using this system.')
+        st.subheader('How to use?')
+        st.write(
+            'Please choose the major and minor divisions of the research fields you want to investigate. Then, '
+            'you will see information of papers submitted to arXiv. Search keyword can be given.')
+        st.write(
+            'Published and accepted filters select the manuscript with url of publisher and "Acceptted" in the comment, respectively.')
+        st.write(
+            'If you want to translate the documents, please paste API key from your DeepL account obtained in '
+            'https://www.deepl.com/en/pro/change-plan#developer. Then, check the checkbox of left side of "translate?". '
+            'You will see the translated documents.')
+        st.write(
+            'Note that, if you use the free version of the deepL api, the translation word is limited to 500,'
+            '000, which corresponds to roughly 500 pages, per month.')
+        st.write(
+            'We will not take any responsibility for any loss, damage, or troubles that may be caused by using this system.')
